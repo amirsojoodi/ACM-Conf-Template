@@ -20,3 +20,10 @@
 .latexrun.db*
 *.toc
 old
+*.glg
+*.gls
+*.glo
+*.ist
+*.sdn
+*.slg
+*.sym
