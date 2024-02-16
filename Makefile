@@ -33,7 +33,7 @@ figures:
 	make -C figures
 
 clean:
-	rm -rf $(OUT_DIR)/*
+	rm -rf $(OUT_DIR)/* (MAIN).pdf
 
 # rm -rf *.toc *.aux $(addsuffix .bbl,${MAIN}) *.blg *.log *~* \
 # 	*.bak *.out $(addsuffix .pdf,${MAIN}) cut.sh .latexrun.db* *.fls \
