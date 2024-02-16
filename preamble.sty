@@ -1,8 +1,14 @@
+\ProvidesPackage{preamble}
+
 %% ------------------------------------------------------------------------------%
 %% Miscelaneous packages
 %% ------------------------------------------------------------------------------%
 
+\usepackage{enumitem}
 \usepackage{xspace}
+\usepackage{subcaption}
+\captionsetup[subfigure]{format=hang}
+\usepackage[T1]{fontenc}
 
 %% ------------------------------------------------------------------------------%
 %% Colors
@@ -19,16 +25,49 @@
 \definecolor{redstrings}{rgb}{0.9,0,0}
 
 %% ------------------------------------------------------------------------------%
+%% Listings and colors
+%% ------------------------------------------------------------------------------%
+
+\usepackage{listings}
+\lstset{
+  backgroundcolor=\color{backcolour},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  commentstyle=\color{mygreen},
+  deletekeywords={...},
+  % escapeinside={\%*}{*)},
+  escapeinside={(*@}{@*)},
+  extendedchars=true,
+  firstnumber=0,
+  % frame=single,
+  keepspaces=true,
+  keywordstyle=\color{bluekeywords}\bfseries,
+  language=C++,
+  morekeywords={*,include,...},
+  numbers=left,
+  numbersep=5pt,
+  numberstyle=\tiny\color{mygray},
+  rulecolor=\color{black},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  stepnumber=1,
+  stringstyle=\color{redstrings},
+  tabsize=2,
+  title=\lstname
+}
+
+%% ------------------------------------------------------------------------------%
 %% Glossary
 %% ------------------------------------------------------------------------------%
 
-%% \usepackage[style=long3colheaderborder,acronym,automake,footnote,toc]{glossaries}
-%% https://www.dickimaw-books.com/gallery/index.php?label=mixed-glossary-emph2
-%% style=tree, stylemods=mcols
 % \usepackage[automake,stylemods=mcols,toc]{glossaries-extra}
 \usepackage[automake]{glossaries-extra}
 % \newglossary[slg]{symbol}{sym}{sdn}{List of Symbols}
 \makeglossaries
+
 \setabbreviationstyle[acronym]{long-postshort-user}
 \setabbreviationstyle[slg]{long-postshort-user}
 %% Other styles are:
@@ -44,41 +83,24 @@
 % \renewcommand{\glsxtrabbreviationfont}[1]{\textcolor{myteal}{\glsxtrifwasfirstuse{{{\let\glsfirstlonguserfont\glslonguserfont}#1}}{\texttt{#1}}}}
 
 \renewcommand{\glsxtrregularfont}[1]{\textcolor{violet}{\glsxtrifwasfirstuse{{#1}}{#1}}}
-\renewcommand{\glsxtrabbreviationfont}[1]{\textcolor{myteal}{\glsxtrifwasfirstuse{{#1}}{\texttt{#1}}}}
+\renewcommand{\glsxtrabbreviationfont}[1]{{\glsxtrifwasfirstuse{{#1}}{#1}}}
 
-\renewcommand{\glsfirstabbrvuserfont}[1]{\textcolor{myteal}{\texttt{#1}}}
+\renewcommand{\glsfirstabbrvuserfont}[1]{{#1}}
 
 \renewcommand*{\glsxtrsetupfulldefs}{%
   \renewcommand*{\glsxtrifwasfirstuse}[2]{##2}%
 }
 
 %% ------------------------------------------------------------------------------%
-%% Declare If Statements for Optional Pages
-%% ------------------------------------------------------------------------------%
-
-\newif\ifPageFigures
-\newif\ifPageTables
-\newif\ifPageGlossaries
-\newif\ifPageContents
-\newif\ifPageCodeSnippets
-\newif\ifPageEquations
-
-%% ------------------------------------------------------------------------------%
-%% Set Default States for Optional Pages
-%% ------------------------------------------------------------------------------%
-\PageFiguresfalse
-\PageTablesfalse
-\PageGlossariesfalse
-\PageContentsfalse
-\PageCodeSnippetsfalse
-\PageEquationsfalse
-
-%% ------------------------------------------------------------------------------%
 %% Command definitions
 %% ------------------------------------------------------------------------------%
 
 \definecolor{codegray}{gray}{0.9}
-\newcommand{\code}[1]{\colorbox{codegray}{\texttt{#1}}}
+
+\newcommand{\code}[1]{{\texttt{#1}}}
+
+%% This package should be here! don't move it!
+\usepackage{cleveref}
 
 %% ------------------------------------------------------------------------------%
 %% Macros
@@ -106,13 +128,12 @@
 \def\isend{\code{MPI\_Isend}\xspace}
 \def\longlongint{\code{MPI\_LONG\_LONG\_INT}\xspace}
 \def\mpit{\code{MPI\_T}\xspace}
-\def\pmpi{\texttt{PMPI}\xspace}
+\def\pmpi{PMPI\xspace}
 \def\rank{\emph{rank}\xspace}
 \def\ranks{\emph{ranks}\xspace}
 \def\recv{\code{MPI\_Recv}\xspace}
 \def\reduce{\code{MPI\_Reduce}\xspace}
 \def\root{\emph{root}\xspace}
-\def\rsa{\gls{RSA}\xspace}
 \def\scan{\code{MPI\_Scan}\xspace}
 \def\scatter{\code{MPI\_Scatter}\xspace}
 \def\send{\code{MPI\_Send}\xspace}
@@ -134,7 +155,7 @@
 \def\algknomial{\emph{Knomial}\xspace}
 \def\alglinear{\emph{Linear}\xspace}
 \def\algring{\emph{Ring}\xspace}
-\def\algrsa{\gls{RSA}\xspace}
+\def\algrsa{\gls*{RSA}\xspace}
 \def\algpairwise{\emph{Pairwise Exchange}\xspace}
 \def\algpipeline{\emph{Pipeline}\xspace}
 \def\algrab{\emph{Rabenseifner}\xspace}
@@ -143,31 +164,32 @@
 \def\algsegring{\emph{Segmented Ring}\xspace}
 \def\algsynclinear{\emph{Synchornized Linear}\xspace}
 \def\algtwoprocs{\emph{Two Processes}\xspace}
-\def\api{\gls{API}\xspace}
-\def\apis{\gls{API}s\xspace}
+\def\api{\gls*{API}\xspace}
+\def\apis{\gls*{API}s\xspace}
 \def\beluga{B\'eluga\xspace}
-\def\btl{\gls{BTL}\xspace}
+\def\btl{\gls*{BTL}\xspace}
 \def\coll{\emph{collective}\xspace}
 \def\Coll{\emph{Collective}\xspace}
 \def\colls{\emph{collectives}\xspace}
 \def\Colls{\emph{Collectives}\xspace}
 \def\cntk{CNTK\xspace}
-\def\cpu{\texttt{CPU}\xspace}
-\def\cpus{\texttt{CPUs}\xspace}
-\def\cuda{\gls{CUDA}\xspace}
-\def\dl{\gls{DL}\xspace}
+\def\cpu{CPU\xspace}
+\def\cpus{CPUs\xspace}
+\def\cuda{\gls*{CUDA}\xspace}
+\def\cudaipc{\gls*{CUDA} \gls*{IPC}\xspace}
+\def\dl{\gls*{DL}\xspace}
 \def\dst{\emph{dst}\xspace}
-\def\git{\texttt{git}\xspace}
-\def\github{\texttt{GitHub}\xspace}
-\def\google{\texttt{Google}\xspace}
+\def\git{git\xspace}
+\def\github{GitHub\xspace}
+\def\google{Google\xspace}
 \def\grep{\code{grep}\xspace}
 \def\hct{\code{HOROVOD\_CYCLE\_TIME}\xspace}
-\def\hpc{\gls{HPC}\xspace}
+\def\hpc{\gls*{HPC}\xspace}
 \def\hft{\code{HOROVOD\_FUSION\_THRESHOLD}\xspace}
-\def\horovod{\texttt{Horovod}\xspace}
-\def\ib{\gls{IB}\xspace}
-\def\ipc{\gls{IPC}\xspace}
-\def\ipcs{\gls{IPC}s\xspace}
+\def\horovod{Horovod\xspace}
+\def\ib{\gls*{IB}\xspace}
+\def\ipc{\gls*{IPC}\xspace}
+\def\ipcs{\gls*{IPC}s\xspace}
 \def\hashmap{\emph{HashMap}\xspace}
 \def\keras{Keras\xspace}
 \def\key{\emph{key}\xspace}
@@ -176,113 +198,125 @@
 \def\msg{\emph{message matching}\xspace}
 \def\Msg{\emph{Message matching}\xspace}
 \def\ml{Machine Learning\xspace}
-\def\mpi{\gls{MPI}\xspace}
-\def\mpich{\texttt{MPICH}\xspace}
-\def\mpichucx{\texttt{MPICH+}\gls{UCX}\xspace}
-\def\mpicuda{\gls{MPI}\texttt{+}\gls{CUDA}\xspace}
-\def\mpimpi{\gls{MPI}\texttt{+}\gls{MPI}\xspace}
-\def\mpinccl{\gls{MPI}\texttt{+}\gls{NCCL}\xspace}
-\def\mpiopencl{\gls{MPI}\texttt{+}\gls{OpenCL}\xspace}
-\def\mpithree{\gls{MPI}\texttt{-3}\xspace}
-\def\mpix{\gls{MPI}\texttt{+X}\xspace}
-\def\mvapich{\texttt{MVAPICH}\xspace}
-\def\mvapichtwo{\texttt{MVAPICH2}\xspace}
-\def\mvapichtwogdr{\texttt{MVAPICH2-}\gls{GDR}\xspace}
+\def\mpi{\gls*{MPI}\xspace}
+\def\mpich{MPICH\xspace}
+\def\mpichucx{MPICH+\gls*{UCX}\xspace}
+\def\mpicuda{\gls*{MPI}+\gls*{CUDA}\xspace}
+\def\mpimpi{\gls*{MPI}+\gls*{MPI}\xspace}
+\def\mpinccl{\gls*{MPI}+\gls*{NCCL}\xspace}
+\def\mpiopencl{\gls*{MPI}+\gls*{OpenCL}\xspace}
+\def\mpithree{\gls*{MPI}-3\xspace}
+\def\mpix{\gls*{MPI}+X\xspace}
+\def\mvapich{MVAPICH\xspace}
+\def\mvapichtwo{MVAPICH2\xspace}
+\def\mvapichtwogdr{MVAPICH2\gls*{GDR}\xspace}
 \def\mxnet{MXNet\xspace}
-\def\nic{\gls{NIC}\xspace}
-\def\nics{\gls{NIC}\texttt{s}\xspace}
-\def\nccl{\gls{NCCL}\xspace}
+\def\nic{\gls*{NIC}\xspace}
+\def\nics{\gls*{NIC}s\xspace}
+\def\nccl{\gls*{NCCL}\xspace}
 \def\ncclrecv{\code{NCCL\_Recv}\xspace}
 \def\ncclsend{\code{NCCL\_Send}\xspace}
-\def\nccltwo{\gls{NCCL}\texttt{2}\xspace}
-\def\omp{\gls{OpenMP}\xspace}
-\def\ompi{\gls{OMPI}\xspace}
-\def\opal{\gls{OPAL}\xspace}
-\def\opencl{\gls{OpenCL}\xspace}
-\def\openacc{\gls{OpenACC}\xspace}
-\def\openmpi{\texttt{Open }\gls{MPI}\xspace}
-\def\openmpiucx{\texttt{Open }\gls{MPI}+\gls{UCX}\xspace}
-\def\openshmem{\gls{OpenSHMEM}\xspace}
-\def\os{\gls{OS}\xspace}
+\def\nccltwo{\gls*{NCCL}2\xspace}
+\def\nvshmem{NVSHMEM\xspace}
+\def\omb{\gls*{OMB}\xspace}
+\def\omp{\gls*{OpenMP}\xspace}
+\def\ompi{\gls*{OMPI}\xspace}
+\def\opal{\gls*{OPAL}\xspace}
+\def\opencl{\gls*{OpenCL}\xspace}
+\def\openacc{\gls*{OpenACC}\xspace}
+\def\openmpi{Open \gls*{MPI}\xspace}
+\def\openmpiucx{Open \gls*{MPI}+\gls*{UCX}\xspace}
+\def\openshmem{\gls*{OpenSHMEM}\xspace}
+\def\os{\gls*{OS}\xspace}
 \def\osc{\emph{one-sided}\xspace}
 \def\Osc{\emph{One-sided}\xspace}
-\def\pap{\gls{PAP}\xspace}
-\def\paps{\gls{PAP}s\xspace}
+\def\pap{\gls*{PAP}\xspace}
+\def\paps{\gls*{PAP}s\xspace}
 \def\part{\emph{partitioned}\xspace}
-\def\pat{\gls{PAT}\xspace}
-\def\pats{\gls{PAT}s\xspace}
-\def\prrte{\gls{PRRTE}\xspace}
+\def\pat{\gls*{PAT}\xspace}
+\def\pats{\gls*{PAT}s\xspace}
+\def\prrte{\gls*{PRRTE}\xspace}
 \def\pt{PyTorch\xspace}
-\def\pthreads{\gls{Pthreads}\xspace}
-\def\ptp{\gls{P2P}\xspace}
-\def\ptps{\gls{P2P}s\xspace}
+\def\pthreads{\gls*{Pthreads}\xspace}
+\def\ptp{\gls*{P2P}\xspace}
+\def\ptps{\gls*{P2P}s\xspace}
 \def\rl{Reinforcement Learning\xspace}
 \def\sharp{SHARP\texttrademark\xspace}
-\def\systemv{\texttt{System V}\xspace}
+\def\systemv{System V\xspace}
 \def\src{\emph{src}\xspace}
-\def\tf{\texttt{TensorFlow}\xspace}
+\def\tf{TensorFlow\xspace}
 \def\tfbench{\code{tf\_cnn\_benchmark}\xspace}
 \def\temp{\emph{temp}\xspace}
-\def\ucc{\gls{UCC}\xspace}
-\def\ucf{\gls{UCF}\xspace}
-\def\ucp{\gls{UCP}\xspace}
-\def\ucs{\gls{UCS}\xspace}
-\def\uct{\gls{UCT}\xspace}
-\def\ucx{\gls{UCX}\xspace}
+\def\ucc{\gls*{UCC}\xspace}
+\def\ucf{\gls*{UCF}\xspace}
+\def\ucm{\gls*{UCM}\xspace}
+\def\ucp{\gls*{UCP}\xspace}
+\def\ucs{\gls*{UCS}\xspace}
+\def\uct{\gls*{UCT}\xspace}
+\def\ucx{\gls*{UCX}\xspace}
 
 % GPUs, CUDA, & NVIDIA
-\def\asynccopy{\gls{AC}\xspace}
-\def\amd{\texttt{AMD}\xspace}
-\def\ampere{\texttt{Ampere}\xspace}
-\def\cgroups{\texttt{Cooperative Groups}\xspace}
-\def\cgraph{\gls{CUDA} \texttt{Graph}\xspace}
-\def\cgraphs{\gls{CUDA} \texttt{Graphs}\xspace}
-\def\cstream{\gls{CUDA} \texttt{stream}\xspace}
-\def\cstreams{\gls{CUDA} \texttt{streams}\xspace}
+\def\asynccopy{\gls*{AC}\xspace}
+\def\amd{AMD\xspace}
+\def\ampere{Ampere\xspace}
+\def\cevent{\gls*{CUDA} \emph{event}\xspace}
+\def\cevents{\gls*{CUDA} \emph{events}\xspace}
+\def\cgroups{Cooperative Groups\xspace}
+\def\cgraph{\gls*{CUDA} Graph\xspace}
+\def\cgraphs{\gls*{CUDA} Graphs\xspace}
+\def\ctx{\emph{context}\xspace}
+\def\ctxs{\emph{contexts}\xspace}
+\def\cstream{\gls*{CUDA} \emph{stream}\xspace}
+\def\cstreams{\gls*{CUDA} \emph{streams}\xspace}
 \def\cudadevsync{\code{cudaDeviceSynchronize}\xspace}
+\def\cudadevreset{\code{cudaDeviceReset}\xspace}
+\def\cudahostalloc{\code{cudaHostAlloc}\xspace}
+\def\cudamemregister{\code{cudaMemRegister}\xspace}
+\def\cudamemalloc{\code{cudaMalloc}\xspace}
 \def\cudamemadvise{\code{cudaMemAdvise}\xspace}
 \def\cudamemcpy{\code{cudaMemcpy}\xspace}
 \def\cudamemcpyasync{\code{cudaMemcpyAsync}\xspace}
 \def\cudamemset{\code{cudaMemset}\xspace}
 \def\cudamemprefetch{\code{cudaMemPrefetch}\xspace}
 \def\cudastreamsync{\code{cudaStreamSynchronize}\xspace}
-\def\dgxone{\texttt{DGX-1}\xspace}
-\def\dgxtwo{\texttt{DGX-2}\xspace}
+\def\dgxone{DGX-1\xspace}
+\def\dgxtwo{DGX-2\xspace}
 \def\event{\emph{event}\xspace}
 \def\events{\emph{events}\xspace}
 %\def\gpudirect{GPUDirect\textsuperscript{\textregistered}\xspace}
-\def\gdr{\gls{GDR}\xspace}
-\def\gpu{\gls{GPU}\xspace}
-\def\gpus{\gls{GPU}s\xspace}
-\def\gpudirect{\texttt{GPUDirect}\xspace}
-\def\gpudirectptp{\texttt{GPUDirect\_}\gls{P2P}\xspace}
-\def\gpudirectasync{\texttt{GPUDirect\_Async}\xspace}
-\def\gpudirectrdma{\texttt{GPUDirect\_}\gls{RDMA}\xspace}
+\def\gdr{\gls*{GDR}\xspace}
+\def\gpu{\gls*{GPU}\xspace}
+\def\gpus{\gls*{GPU}s\xspace}
+\def\gpudirect{GPUDirect\xspace}
+\def\gpudirectptp{GPUDirect\_\gls*{P2P}\xspace}
+\def\gpudirectasync{GPUDirect\_Async\xspace}
+\def\gpudirectrdma{GPUDirect\_\gls*{RDMA}\xspace}
 \def\graphlaunch{\code{cudaGraphLaunch}\xspace}
-\def\gstream{\gls{GPU} \texttt{stream}\xspace}
-\def\gstreams{\gls{GPU} \texttt{streams}\xspace}
+\def\gstream{\gls*{GPU} \emph{stream}\xspace}
+\def\gstreams{\gls*{GPU} \emph{streams}\xspace}
 \def\host{\emph{host}\xspace}
-\def\hyperq{\texttt{Hyper-Q}\xspace}
-\def\kernel{\texttt{kernel}\xspace}
-\def\kernels{\texttt{kernels}\xspace}
-\def\mellanox{\texttt{Mellanox}\xspace}
-\def\mig{\gls{MIG}\xspace}
-\def\mps{\gls{MPS}\xspace}
-\def\nvidia{\texttt{NVIDIA}\xspace}
-\def\nvgroup{\texttt{NVGroup}\xspace}
-\def\nvlink{\texttt{NVLink}\xspace}
-\def\nvlinkone{\texttt{NVLink-V1}\xspace}
-\def\nvlinks{\texttt{NVLinks}\xspace}
-\def\nvlinktwo{\texttt{NVLink-V2}\xspace}
-\def\nvlinkthree{\texttt{NVLink-V3}\xspace}
-\def\nvlinksli{\gls{NVLink-SLI}\xspace}
-\def\nvswitch{\texttt{NVSwitch}\xspace}
-\def\pcie{\gls{PCIe}\xspace}
-\def\sm{\gls{SM}\xspace}
-\def\sms{\gls{SM}s\xspace}
-\def\stream{\texttt{stream}\xspace}
-\def\streams{\texttt{streams}\xspace}
-\def\volta{\texttt{Volta}\xspace}
+\def\hyperq{Hyper-Q\xspace}
+\def\kernel{kernel\xspace}
+\def\kernels{kernels\xspace}
+\def\mellanox{Mellanox\xspace}
+\def\mig{\gls*{MIG}\xspace}
+\def\mps{\gls*{MPS}\xspace}
+\def\nvidia{NVIDIA\xspace}
+\def\nvgroup{NVGroup\xspace}
+\def\nvlink{NVLink\xspace}
+\def\nvlinkctc{NVLink Chip-to-Chip (C2C)\xspace}
+\def\nvlinkone{NVLink-V1\xspace}
+\def\nvlinks{NVLinks\xspace}
+\def\nvlinktwo{NVLink-V2\xspace}
+\def\nvlinkthree{NVLink-V3\xspace}
+\def\nvlinksli{\gls*{NVLink-SLI}\xspace}
+\def\nvswitch{NVSwitch\xspace}
+\def\pcie{\gls*{PCIe}\xspace}
+\def\sm{\gls*{SM}\xspace}
+\def\sms{\gls*{SM}s\xspace}
+\def\stream{stream\xspace}
+\def\streams{streams\xspace}
+\def\volta{Volta\xspace}
 
 % ACRONYMS
 % \newacronym{NameInSort}{NameToShow}{Definition}
@@ -400,6 +434,7 @@
 \newacronym{TGCS}{TGCS}{Task Graph Computing System}
 \newacronym{UCC}{UCC}{Unified Communication Collectives}
 \newacronym{UCF}{UCF}{Unified Communication Framework}
+\newacronym{UCM}{UCM}{Unified Communication Memory}
 \newacronym{UCP}{UCP}{Unified Communication Protocols}
 \newacronym{UCS}{UCS}{Unified Communication Services}
 \newacronym{UCT}{UCT}{Unified Communication Transports}
