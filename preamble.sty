@@ -63,33 +63,34 @@
 %% Glossary
 %% ------------------------------------------------------------------------------%
 
+% Glossaries-extra
 % \usepackage[automake,stylemods=mcols,toc]{glossaries-extra}
-\usepackage{glossaries-extra}
-% \newglossary[slg]{symbol}{sym}{sdn}{List of Symbols}
-\makeglossaries
+% \usepackage{glossaries-extra}
+% \setabbreviationstyle[acronym]{long-postshort-user}
+% \setabbreviationstyle[slg]{long-postshort-user}
+% \renewcommand{\glsxtrregularfont}[1]{\textcolor{violet}{\glsxtrifwasfirstuse{{#1}}{#1}}}
+% \renewcommand{\glsxtrabbreviationfont}[1]{{\glsxtrifwasfirstuse{{#1}}{#1}}}
+% \renewcommand{\glsfirstabbrvuserfont}[1]{{#1}}
 
-\setabbreviationstyle[acronym]{long-postshort-user}
-\setabbreviationstyle[slg]{long-postshort-user}
+% \renewcommand*{\glsxtrsetupfulldefs}{%
+%   \renewcommand*{\glsxtrifwasfirstuse}[2]{##2}%
+% }
+
 %% Other styles are:
 %% \setabbreviationstyle[acronym]{short-sc-postfootnote}
 %% \setabbreviationstyle[acronym]{long-em-short-em}
 %% \setabbreviationstyle[acronym]{short-footnote}
 %% \setabbreviationstyle[acronym]{long-short-user}
 
-% \renewcommand*{\glsfirstlonguserfont}[1]{\emph{#1}}
-% \renewcommand{\glsxtrregularfont}[1]{\textcolor{violet}{\glsxtrifwasfirstuse{{#1}}{#1}}}
-% \renewcommand{\glsxtrabbreviationfont}[1]{\textcolor{myteal}{\glsxtrifwasfirstuse{{#1}}{\texttt{#1}}}}
-% \renewcommand{\glsxtrabbreviationfont}[1]{\textcolor{myteal}{\glsxtrifwasfirstuse{}{\let\glsfirstlonguserfont\glslonguserfont}#1}}
-% \renewcommand{\glsxtrabbreviationfont}[1]{\textcolor{myteal}{\glsxtrifwasfirstuse{{{\let\glsfirstlonguserfont\glslonguserfont}#1}}{\texttt{#1}}}}
+%% \renewcommand*{\glsfirstlonguserfont}[1]{\emph{#1}}
+%% \renewcommand{\glsxtrregularfont}[1]{\textcolor{violet}{\glsxtrifwasfirstuse{{#1}}{#1}}}
+%% \renewcommand{\glsxtrabbreviationfont}[1]{\textcolor{myteal}{\glsxtrifwasfirstuse{{#1}}{\texttt{#1}}}}
+%% \renewcommand{\glsxtrabbreviationfont}[1]{\textcolor{myteal}{\glsxtrifwasfirstuse{}{\let\glsfirstlonguserfont\glslonguserfont}#1}}
+%% \renewcommand{\glsxtrabbreviationfont}[1]{\textcolor{myteal}{\glsxtrifwasfirstuse{{{\let\glsfirstlonguserfont\glslonguserfont}#1}}{\texttt{#1}}}}
 
-\renewcommand{\glsxtrregularfont}[1]{\textcolor{violet}{\glsxtrifwasfirstuse{{#1}}{#1}}}
-\renewcommand{\glsxtrabbreviationfont}[1]{{\glsxtrifwasfirstuse{{#1}}{#1}}}
-
-\renewcommand{\glsfirstabbrvuserfont}[1]{{#1}}
-
-\renewcommand*{\glsxtrsetupfulldefs}{%
-  \renewcommand*{\glsxtrifwasfirstuse}[2]{##2}%
-}
+\usepackage{glossaries}
+% \newglossary[slg]{symbol}{sym}{sdn}{List of Symbols}
+\makeglossaries
 
 %% ------------------------------------------------------------------------------%
 %% Command definitions
