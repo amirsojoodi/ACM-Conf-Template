@@ -5,8 +5,8 @@ For more information and examples, you can download official set of templates fr
 
 The official github repository for acmart template is [here](https://github.com/borisveytsman/acmart/)
 
-## Useful links:
+## Useful links
 
-- https://authors.acm.org/proceedings/production-information/accepted-latex-packages
-- https://portalparts.acm.org/hippo/latex_templates/taps_accepted-packages.json
-- https://www.acm.org/publications/taps/latex-best-practices
+- [https://authors.acm.org/proceedings/production-information/accepted-latex-packages](https://authors.acm.org/proceedings/production-information/accepted-latex-packages)
+- [https://portalparts.acm.org/hippo/latex_templates/taps_accepted-packages.json](https://portalparts.acm.org/hippo/latex_templates/taps_accepted-packages.json)
+- [https://www.acm.org/publications/taps/latex-best-practices](https://www.acm.org/publications/taps/latex-best-practices)
